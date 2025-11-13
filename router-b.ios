@@ -36,6 +36,8 @@ exit
 router eigrp 10
 network 10.0.2.0 0.0.0.3
 network 172.16.20.0 0.0.0.255
+network 172.16.21.0 0.0.0.255
+network 172.16.22.0 0.0.0.255
 no auto-summary
 exit
 ! Configure MD5 authentication for EIGRP
