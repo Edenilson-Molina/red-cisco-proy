@@ -1,0 +1,52 @@
+enable
+configure terminal
+hostname RouterB
+! Configure serial
+interface s0/0/1
+ip address 10.0.2.2 255.255.255.252
+no shutdown
+exit
+! Configure subinterfaces for VLANs on FastEthernet0/0
+interface fa0/0
+no shutdown
+exit
+interface fa0/0.10
+encapsulation dot1Q 10
+ip address 172.16.20.1 255.255.255.0
+exit
+interface fa0/0.20
+encapsulation dot1Q 20
+ip address 172.16.21.1 255.255.255.0
+exit
+interface fa0/0.30
+encapsulation dot1Q 30
+ip address 172.16.22.1 255.255.255.0
+exit
+! Configure DHCP helper addresses on subinterfaces
+interface fa0/0.10
+ip helper-address 10.0.0.1
+exit
+interface fa0/0.20
+ip helper-address 10.0.0.1
+exit
+interface fa0/0.30
+ip helper-address 10.0.0.1
+exit
+! Configure EIGRP for RouterB
+router eigrp 10
+network 10.0.2.0 0.0.0.3
+network 172.16.20.0 0.0.0.255
+no auto-summary
+exit
+! Configure MD5 authentication for EIGRP
+key chain EIGRP_KEYS
+key 1
+key-string EIGRP_SECRET
+exit
+exit
+interface s0/0/1
+ip authentication mode eigrp 10 md5
+ip authentication key-chain eigrp 10 EIGRP_KEYS
+exit
+! Save the configuration
+do wr

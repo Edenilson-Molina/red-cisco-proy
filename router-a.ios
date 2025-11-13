@@ -1,0 +1,47 @@
+enable
+configure terminal
+hostname RouterA
+! Configure serial interfaces
+interface s0/0/0
+ip address 10.0.0.2 255.255.255.252
+no shutdown
+exit
+interface s0/0/1
+ip address 10.0.2.1 255.255.255.252
+no shutdown
+exit
+interface s0/2/0
+ip address 10.0.3.1 255.255.255.252
+no shutdown
+exit
+! Configure EIGRP for RouterA
+router eigrp 10
+network 10.0.2.0 0.0.0.3
+network 10.0.3.0 0.0.0.3
+no auto-summary
+exit
+! Configure OSPF for RouterA
+router ospf 1
+network 10.0.0.0 0.0.0.255 area 1
+redistribute eigrp 10 subnets
+exit
+router eigrp 10
+redistribute ospf 1 metric 10000 100 255 1 1500
+no auto-summary
+exit
+! Configure MD5 authentication for EIGRP
+key chain EIGRP_KEYS
+key 1
+key-string EIGRP_SECRET
+exit
+exit
+interface s0/0/1
+ip authentication mode eigrp 10 md5
+ip authentication key-chain eigrp 10 EIGRP_KEYS
+exit
+interface s0/2/0
+ip authentication mode eigrp 10 md5
+ip authentication key-chain eigrp 10 EIGRP_KEYS
+exit
+! Save the configuration
+do wr
