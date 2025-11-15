@@ -1,6 +1,21 @@
 enable
 configure terminal
 hostname RouterC
+! --- Security & SSH Configuration
+service password-encryption
+enable secret C0S115-Priv$2025
+username admin privilege 15 secret Adm1n-C0S115!
+ip domain-name red.local
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+line console 0
+password Con$ole-2025
+login
+exit
+line vty 0 15
+login local
+transport input ssh
+exit
 ! Configure serial
 interface s0/0/1
 ip address 10.0.3.2 255.255.255.252
