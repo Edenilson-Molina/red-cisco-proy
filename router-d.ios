@@ -18,7 +18,7 @@ transport input ssh
 exit
 ! Configure GigabitEthernet and Serial interfaces
 interface g0/1/0
-ip address 172.16.30.1 255.255.255.0
+ip address 172.16.30.1 255.255.255.192
 no shutdown
 exit
 interface s0/0/0
@@ -28,49 +28,49 @@ no shutdown
 exit
 ! Configure DHCP for the GigabitEthernet interface
 ip dhcp pool REDA_POOL
-network 172.16.30.0 255.255.255.0
+network 172.16.30.0 255.255.255.192
 default-router 172.16.30.1
 dns-server 8.8.8.8
 domain-name redA.local
 exit
 ! -- Pool Red B VLAN 10
 ip dhcp pool REDB_VLAN10
-network 172.16.20.0 255.255.255.0
+network 172.16.20.0 255.255.255.192
 default-router 172.16.20.1
 dns-server 8.8.8.8
 domain-name redB.local.vlan10
 exit
 ! -- Pool Red B VLAN 20
 ip dhcp pool REDB_VLAN20
-network 172.16.21.0 255.255.255.0
+network 172.16.21.0 255.255.255.224
 default-router 172.16.21.1
 dns-server 8.8.8.8
 domain-name redB.local.vlan20
 exit
 ! -- Pool Red B VLAN 30
 ip dhcp pool REDB_VLAN30
-network 172.16.22.0 255.255.255.0
+network 172.16.22.0 255.255.255.240
 default-router 172.16.22.1
 dns-server 8.8.8.8
 domain-name redB.local.vlan30
 exit
 ! -- Pool Red C VLAN 10
 ip dhcp pool REDC_VLAN10
-network 172.16.40.0 255.255.255.0
+network 172.16.40.0 255.255.255.192
 default-router 172.16.40.1
 dns-server 8.8.8.8
 domain-name redC.local.vlan10
 exit
 ! -- Pool Red C VLAN 20
 ip dhcp pool REDC_VLAN20
-network 172.16.41.0 255.255.255.0
+network 172.16.41.0 255.255.255.224
 default-router 172.16.41.1
 dns-server 8.8.8.8
 domain-name redC.local.vlan20
 exit
 ! -- Pool Red C VLAN 30
 ip dhcp pool REDC_VLAN30
-network 172.16.42.0 255.255.255.0
+network 172.16.42.0 255.255.255.240
 default-router 172.16.42.1
 dns-server 8.8.8.8
 domain-name redC.local.vlan30
@@ -85,7 +85,7 @@ ip dhcp excluded-address 172.16.41.1 172.16.41.10
 ip dhcp excluded-address 172.16.42.1 172.16.42.10
 ! Configure OSPF for RouterD
 router ospf 1
-network 172.16.30.0 0.0.0.255 area 1
+network 172.16.30.0 0.0.0.63 area 1
 network 10.0.0.0 0.0.0.3 area 1
 exit
 ! Configure MD5 authentication for OSPF

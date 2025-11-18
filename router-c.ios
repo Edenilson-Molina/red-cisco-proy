@@ -27,15 +27,15 @@ no shutdown
 exit
 interface fa0/0.10
 encapsulation dot1Q 10
-ip address 172.16.40.1 255.255.255.0
+ip address 172.16.40.1 255.255.255.192
 exit
 interface fa0/0.20
 encapsulation dot1Q 20
-ip address 172.16.41.1 255.255.255.0
+ip address 172.16.41.1 255.255.255.224
 exit
 interface fa0/0.30
 encapsulation dot1Q 30
-ip address 172.16.42.1 255.255.255.0
+ip address 172.16.42.1 255.255.255.240
 exit
 ! Configure DHCP helper addresses on subinterfaces
 interface fa0/0.10
@@ -50,9 +50,9 @@ exit
 ! Configure EIGRP for RouterC
 router eigrp 10
 network 10.0.3.0 0.0.0.3
-network 172.16.40.0 0.0.0.255
-network 172.16.41.0 0.0.0.255
-network 172.16.42.0 0.0.0.255
+network 172.16.40.0 0.0.0.63
+network 172.16.41.0 0.0.0.31
+network 172.16.42.0 0.0.0.15
 no auto-summary
 exit
 ! Configure MD5 authentication for EIGRP
