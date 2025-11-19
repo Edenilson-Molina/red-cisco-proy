@@ -12,7 +12,7 @@ name VLAN_30
 exit
 interface range fa0/2
 switchport mode access
-switchport access vlan 10
+switchport access vlan 30
 exit
 interface range fa0/3
 switchport mode access
@@ -20,7 +20,7 @@ switchport access vlan 20
 exit
 interface range fa0/4
 switchport mode access
-switchport access vlan 30
+switchport access vlan 10
 exit
 interface fa0/24
 switchport mode trunk
